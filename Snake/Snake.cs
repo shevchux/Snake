@@ -40,6 +40,28 @@ namespace Snake
             return nextPoint;
         }
 
+        public bool eat(Food food)
+        {
+            Point head = GetNextPoint();
+            if (head.x == food.x && head.y == food.y)
+            {
+                /*food.symbol = Config.SYMBOL_SNAKE;
+                Point p = new Point();
+                p.x = food.x;
+                p.y = food.y;
+                p.symbol = Config.SYMBOL_SNAKE;
+                pList.Add(p);*/
+                head.Draw();
+                pList.Add(new Point(head));
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void HandleKey(ConsoleKey key)
         {
             switch (key)

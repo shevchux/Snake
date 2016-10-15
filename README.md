@@ -1,2 +1,2 @@
 # Snake
-The **console game** in `C#`
+The **console game** in ``C#``

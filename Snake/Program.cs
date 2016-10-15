@@ -23,15 +23,28 @@ namespace Snake
             Snake snake = new Snake(position, Config.SNAKE_START_LENGTH, Config.SNAKE_START_DIRECTION);
             snake.Draw();
 
+            Food food = new Food();
+            food.GenerateFood();
+            food.Draw();
+
             while (true)
             {
+                if (snake.eat(food))
+                {
+                    food.GenerateFood();
+                    food.Draw();
+                }
+                else
+                {
+                    snake.Move();
+                }
+
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo key = Console.ReadKey();
                     snake.HandleKey(key.Key);
                 }
                 Thread.Sleep(Config.REFRESH_SPEED);
-                snake.Move();
             }
         }
     }
