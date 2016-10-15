@@ -29,7 +29,7 @@ namespace Snake
 
             Point head = GetNextPoint();
             pList.Add(head);
-            head.Draw();
+            head.Draw(Config.COLOR_SNAKE);
         }
 
         private Point GetNextPoint()
@@ -40,18 +40,49 @@ namespace Snake
             return nextPoint;
         }
 
+        public List<Point> getPList()
+        {
+            return pList;
+        }
+
+        public bool bump(Frame frame)
+        {
+            Point head = pList.Last();
+            List<Point> frameList = frame.getPList();
+            for (int i = 0; i < frameList.Count(); i++)
+            {
+                if (frameList[i].x == head.x && frameList[i].y == head.y)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void Draw()
+        {
+            base.Draw(Config.COLOR_SNAKE);
+        }
+
+        public bool hannibal()
+        {
+            Point head = pList.Last();
+            for (int i = 0; i < pList.Count() - 2; i++)
+            {
+                if (head.x == pList[i].x && head.y == pList[i].y)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public bool eat(Food food)
         {
             Point head = GetNextPoint();
             if (head.x == food.x && head.y == food.y)
             {
-                /*food.symbol = Config.SYMBOL_SNAKE;
-                Point p = new Point();
-                p.x = food.x;
-                p.y = food.y;
-                p.symbol = Config.SYMBOL_SNAKE;
-                pList.Add(p);*/
-                head.Draw();
+                head.Draw(Config.COLOR_SNAKE);
                 pList.Add(new Point(head));
 
                 return true;

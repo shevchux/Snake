@@ -10,12 +10,13 @@ namespace Snake
     {
         protected List<Point> pList = new List<Point>();
 
-        public void Draw()
+        public virtual void Draw(ConsoleColor color = Config.COLOR_DEFAULT)
         {
             foreach (Point p in pList)
             {
-                p.Draw();
+                p.Draw(color);
             }
+            Console.ForegroundColor = Config.COLOR_DEFAULT;
         }
     }
 }

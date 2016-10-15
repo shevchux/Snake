@@ -24,11 +24,12 @@ namespace Snake
             y = p.y;
             symbol = p.symbol;
         }
-
-        public void Draw()
+        public virtual void Draw(ConsoleColor color = Config.COLOR_DEFAULT)
         {
+            Console.ForegroundColor = color;
             Console.SetCursorPosition(x, y);
             Console.Write(symbol);
+            Console.ForegroundColor = Config.COLOR_DEFAULT;
         }
 
         public void Move(int offset, Direction direction)
@@ -55,7 +56,7 @@ namespace Snake
         public void Clear()
         {
             symbol = Config.SYMBOL_EMPTY;
-            Draw();
+            Draw(Config.COLOR_DEFAULT);
         }
     }
 }

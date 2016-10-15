@@ -6,21 +6,26 @@ using System.Threading.Tasks;
 
 namespace Snake
 {
-    public class Config
+    class Config
     {
-        public static short WINDOW_HEIGHT = 25;
-        public static short WINDOW_WIDTH = 80;
+        public const short WINDOW_HEIGHT = 25;
+        public const short WINDOW_WIDTH = 80;
 
-        public static char SYMBOL_BORDER = '+';
-        public static char SYMBOL_EMPTY = ' ';
-        public static char SYMBOL_SNAKE = '*';
-        public static char SYMBOL_FOOD = 'o';
+        public const char SYMBOL_BORDER = '+';
+        public const char SYMBOL_EMPTY = ' ';
+        public const char SYMBOL_SNAKE = '*';
+        public const char SYMBOL_FOOD = 'o';
 
-        public static Direction SNAKE_START_DIRECTION = Direction.RIGHT;
-        public static int SNAKE_START_LENGTH = 3;
-        public static int SNAKE_START_POSITION_X = WINDOW_WIDTH / 4 - 2;
-        public static int SNAKE_START_POSITION_Y = WINDOW_HEIGHT / 2 - 1;
+        public const ConsoleColor COLOR_BORDER = ConsoleColor.White;
+        public const ConsoleColor COLOR_DEFAULT = ConsoleColor.White;
+        public const ConsoleColor COLOR_SNAKE = ConsoleColor.Green;
+        public const ConsoleColor COLOR_FOOD = ConsoleColor.Yellow;
 
-        public static int REFRESH_SPEED = 100;
+        public const Direction SNAKE_START_DIRECTION = Direction.RIGHT;
+        public const int SNAKE_START_LENGTH = 3;
+        public const int SNAKE_START_POSITION_X = WINDOW_WIDTH / 4 - 2;
+        public const int SNAKE_START_POSITION_Y = WINDOW_HEIGHT / 2 - 1;
+
+        public const int REFRESH_SPEED = 100;
     }
 }

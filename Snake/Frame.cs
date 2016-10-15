@@ -8,18 +8,29 @@ namespace Snake
 {
     class Frame : Figure
     {
-        public Frame(Point p1, Point p2, char border)
+        public Frame(int width, int height)
         {
-            for (int x = p1.x; x <= p2.x; x++)
+            height-=2;
+            for (int x = 0; x < width; x++)
             {
-                pList.Add(new Point(x, p1.y, border));
-                pList.Add(new Point(x, p2.y, border));
+                pList.Add(new Point(x, 1, Config.SYMBOL_BORDER));
+                pList.Add(new Point(x, height, Config.SYMBOL_BORDER));
             }
-            for (int y = p1.y + 1; y < p2.y; y++)
+            width-=1;
+            for (int y = 1; y < height; y++)
             {
-                pList.Add(new Point(p1.x, y, border));
-                pList.Add(new Point(p2.x, y, border));
+                pList.Add(new Point(0, y, Config.SYMBOL_BORDER));
+                pList.Add(new Point(width, y, Config.SYMBOL_BORDER));
             }
+        }
+        public List<Point> getPList()
+        {
+            return pList;
+        }
+
+        public void Draw()
+        {
+            base.Draw(Config.COLOR_BORDER);
         }
     }
 }
