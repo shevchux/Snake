@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +13,11 @@ namespace Snake
         static void Main()
         {
             Console.CursorVisible = false;
+
+            Config data = new Config();
+            Config.MAX_RESULT = 0;
+            Config.SYMBOL_BORDER = '/';
+            Config.LoadModifiedData();      
 
             Score score = new Score();
             score.Show();
