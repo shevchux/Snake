@@ -9,7 +9,7 @@ namespace Snake
     class Config
     {
         public const short WINDOW_HEIGHT = 25;
-        public const short WINDOW_WIDTH = 80;
+        public const short WINDOW_WIDTH = 40;
 
         public const char SYMBOL_BORDER = '+';
         public const char SYMBOL_EMPTY = ' ';

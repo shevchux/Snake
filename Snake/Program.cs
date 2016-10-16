@@ -11,11 +11,10 @@ namespace Snake
     {
         static void Main()
         {
+            Console.CursorVisible = false;
+
             Score score = new Score();
             score.Show();
-
-            Console.SetBufferSize(Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT);
-            Console.CursorVisible = false;
 
             Frame frame = new Frame(Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT);
             frame.Draw();
@@ -61,7 +60,7 @@ namespace Snake
         private static void GameOver(int result)
         {
             string s = "";
-            for (int i = 0; i < Config.WINDOW_WIDTH; i++)
+            for (int i = 0; i < 2 * Config.WINDOW_WIDTH - 1; i++)
             {
                 s += Config.SYMBOL_BORDER;
             }
@@ -85,10 +84,10 @@ namespace Snake
             string finalScore = string.Format("YOU HAVE GOT {0} POINT{1}", result, (result == 1 ? "" : "S"));
             for (int i = 0; i < message.Count(); i++)
             {
-                Console.SetCursorPosition((Config.WINDOW_WIDTH - message[i].Length) / 2, (Config.WINDOW_HEIGHT - message.Count()) / 2 + i);
+                Console.SetCursorPosition((2 * Config.WINDOW_WIDTH - message[i].Length) / 2, (Config.WINDOW_HEIGHT - message.Count()) / 2 + i);
                 Console.Write(message[i]);
             }
-            Console.SetCursorPosition((Config.WINDOW_WIDTH - finalScore.Length) / 2, Config.WINDOW_HEIGHT / 2 - (Config.WINDOW_HEIGHT % 2 == 1 ? 0 : 1));
+            Console.SetCursorPosition((2 * Config.WINDOW_WIDTH - finalScore.Length) / 2, Config.WINDOW_HEIGHT / 2 - (Config.WINDOW_HEIGHT % 2 == 1 ? 0 : 1));
             Console.Write(finalScore);
             Console.SetCursorPosition(0, Config.WINDOW_HEIGHT - 1);
             bool flag = true;

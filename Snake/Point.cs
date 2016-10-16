@@ -27,7 +27,7 @@ namespace Snake
         public virtual void Draw(ConsoleColor color = Config.COLOR_DEFAULT)
         {
             Console.ForegroundColor = color;
-            Console.SetCursorPosition(x, y);
+            Console.SetCursorPosition(2 * x, y);
             Console.Write(symbol);
             Console.ForegroundColor = Config.COLOR_DEFAULT;
         }
