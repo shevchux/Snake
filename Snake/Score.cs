@@ -27,5 +27,19 @@ namespace Snake
             Console.WriteLine("SCORE: {0}", result);
         }
 
+        public static void ShowPause()
+        {
+            string s = "PRESS ANY KEY TO CONTINUE";
+            Console.SetCursorPosition(2 * Config.WINDOW_WIDTH - s.Length - 1, 0);
+            Console.Write(s);
+        }
+
+        public static void HidePause()
+        {
+            string s = "                         ";
+            Console.SetCursorPosition(2 * Config.WINDOW_WIDTH - s.Length - 1, 0);
+            Console.Write(s);
+        }
+
     }
 }

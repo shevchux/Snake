@@ -93,7 +93,7 @@ namespace Snake
             }
         }
 
-        public void HandleKey(ConsoleKey key)
+        public bool HandleKey(ConsoleKey key)
         {
             switch (key)
             {
@@ -121,9 +121,12 @@ namespace Snake
                         direction = Direction.DOWN;
                     }
                     break;
+                case ConsoleKey.Spacebar:
+                    return true;
                 default:
                     break;
             }
+            return false;
         }
         
     }

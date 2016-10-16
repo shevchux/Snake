@@ -8,12 +8,12 @@ namespace Snake
 {
     class Config
     {
-        public const short WINDOW_HEIGHT = 25;
-        public const short WINDOW_WIDTH = 40;
+        public const short WINDOW_HEIGHT = 21; //RECOMMENDED MIN - 13
+        public const short WINDOW_WIDTH = 35; //RECOMMENDED MIN - 20
 
         public const char SYMBOL_BORDER = '+';
         public const char SYMBOL_EMPTY = ' ';
-        public const char SYMBOL_SNAKE = '*';
+        public const char SYMBOL_SNAKE = '@';
         public const char SYMBOL_FOOD = 'o';
 
         public const ConsoleColor COLOR_BORDER = ConsoleColor.White;
@@ -26,6 +26,6 @@ namespace Snake
         public const int SNAKE_START_POSITION_X = WINDOW_WIDTH / 4 - 2;
         public const int SNAKE_START_POSITION_Y = WINDOW_HEIGHT / 2 - 1;
 
-        public const int REFRESH_SPEED = 100;
+        public const int REFRESH_SPEED = 150;
     }
 }

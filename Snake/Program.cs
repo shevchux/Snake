@@ -51,7 +51,13 @@ namespace Snake
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo key = Console.ReadKey(true);
-                    snake.HandleKey(key.Key);
+                    if (snake.HandleKey(key.Key))
+                    {
+                        Score.ShowPause();
+                        key = Console.ReadKey(true);
+                        snake.HandleKey(key.Key);
+                        Score.HidePause();
+                    }
                 }
                 Thread.Sleep(Config.REFRESH_SPEED);
             }
