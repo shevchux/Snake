@@ -9,14 +9,20 @@ namespace Snake
     class Score
     {
         public int result;
+        public int max_result;
 
         public Score(int result = 0)
         {
             this.result = result;
+            max_result = Config.MAX_RESULT;
         }
 
         public void Inc()
         {
+            if (result == max_result)
+            {
+                max_result++;
+            }
             result++;
         }
 
@@ -25,6 +31,8 @@ namespace Snake
             Console.ForegroundColor = Config.COLOR_DEFAULT;
             Console.SetCursorPosition(0, 0);
             Console.WriteLine("SCORE: {0}", result);
+            Console.SetCursorPosition(11, 0);
+            Console.WriteLine("MAX: {0}", max_result);
         }
 
         public static void ShowPause()

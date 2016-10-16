@@ -8,8 +8,10 @@ namespace Snake
 {
     class Config
     {
-        public static int WINDOW_HEIGHT = 21; /* RECOMMENDED MIN - 13 */
-        public static int WINDOW_WIDTH = 35; /* RECOMMENDED MIN - 20 */
+        private const string CONFIG_PATH = @"..\..\config.data";
+
+        public static int WINDOW_HEIGHT = 21; /* RECOMMENDED MIN - 15 */
+        public static int WINDOW_WIDTH = 35; /* RECOMMENDED MIN - 23 */
 
         public static char SYMBOL_BORDER = '+';
         public static char SYMBOL_EMPTY = ' ';
@@ -22,8 +24,17 @@ namespace Snake
         public static int SNAKE_START_POSITION_X;
         public static int SNAKE_START_POSITION_Y;
 
-        private static string[] data = { };
+        private static string[] data = new string[8];
+
         private enum DataType { WINDOW_WIDTH, WINDOW_HEIGHT, SYMBOL_BORDER, SYMBOL_EMPTY, SYMBOL_SNAKE, SYMBOL_FOOD, REFRESH_SPEED, MAX_RESULT };
+
+        public const ConsoleColor COLOR_BORDER = ConsoleColor.White;
+        public const ConsoleColor COLOR_DEFAULT = ConsoleColor.White;
+        public const ConsoleColor COLOR_SNAKE = ConsoleColor.Green;
+        public const ConsoleColor COLOR_FOOD = ConsoleColor.Yellow;
+
+        public const Direction SNAKE_START_DIRECTION = Direction.RIGHT;
+        public const int SNAKE_START_LENGTH = 3;
 
         public Config()
         {
@@ -50,17 +61,7 @@ namespace Snake
             data[(int)DataType.SYMBOL_FOOD] = String.Format("{0}", SYMBOL_FOOD);
             data[(int)DataType.REFRESH_SPEED] = String.Format("{0}", REFRESH_SPEED);
             data[(int)DataType.MAX_RESULT] = String.Format("{0}", MAX_RESULT);
-            System.IO.File.WriteAllLines(CONFIG_PATH, data);
+            try { System.IO.File.WriteAllLines(CONFIG_PATH, data); } catch { };
         }
-
-        public const string CONFIG_PATH = @"..\..\config.data";
-
-        public const ConsoleColor COLOR_BORDER = ConsoleColor.White;
-        public const ConsoleColor COLOR_DEFAULT = ConsoleColor.White;
-        public const ConsoleColor COLOR_SNAKE = ConsoleColor.Green;
-        public const ConsoleColor COLOR_FOOD = ConsoleColor.Yellow;
-
-        public const Direction SNAKE_START_DIRECTION = Direction.RIGHT;
-        public const int SNAKE_START_LENGTH = 3;
     }
 }

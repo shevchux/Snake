@@ -15,9 +15,7 @@ namespace Snake
             Console.CursorVisible = false;
 
             Config data = new Config();
-            Config.MAX_RESULT = 0;
-            Config.SYMBOL_BORDER = '/';
-            Config.LoadModifiedData();      
+            Config.LoadModifiedData();    
 
             Score score = new Score();
             score.Show();
@@ -82,18 +80,23 @@ namespace Snake
                 Console.Write(s);
             }
             List<string> message = new List<string>();
-            message.Add(" --------------------------------------- ");
-            message.Add(" |                                     | ");
-            message.Add(" |              GAME OVER              | ");
-            message.Add(" |                                     | ");
-            message.Add(" |      -  -  -  -  -  -  -  -  -      | ");
-            message.Add(" |                                     | ");
-            message.Add(" |      -  -  -  -  -  -  -  -  -      | ");
-            message.Add(" |                                     | ");
-            message.Add(" |   Do you want to try again? (Y/N)   | ");
-            message.Add(" |                                     | ");
-            message.Add(" --------------------------------------- ");
-            string finalScore = string.Format("YOU HAVE GOT {0} POINT{1}", result, (result == 1 ? "" : "S"));
+            message.Add(" ------------------------------------- ");
+            message.Add(" |                                   | ");
+            message.Add(" |             GAME OVER             | ");
+            message.Add(" |                                   | ");
+            message.Add(" |     -  -  -  -  -  -  -  -  -     | ");
+            message.Add(" |                                   | ");
+            message.Add(" |     -  -  -  -  -  -  -  -  -     | ");
+            message.Add(" |                                   | ");
+            message.Add(" |  Do you want to try again? (Y/N)  | ");
+            message.Add(" |                                   | ");
+            message.Add(" ------------------------------------- ");
+            string finalScore = string.Format("{0} {1} POINT{2}", (result > Config.MAX_RESULT ? "NEW RECORD!" : "YOU HAVE GOT"), result, (result == 1 ? "" : "S"));
+            if (result > Config.MAX_RESULT)
+            {
+                Config.MAX_RESULT = result;
+                Config.LoadModifiedData();
+            }
             for (int i = 0; i < message.Count(); i++)
             {
                 Console.SetCursorPosition((2 * Config.WINDOW_WIDTH - message[i].Length) / 2, (Config.WINDOW_HEIGHT - message.Count()) / 2 + i);
