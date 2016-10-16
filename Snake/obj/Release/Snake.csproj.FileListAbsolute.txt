@@ -1,5 +1,0 @@
-D:\snake\Snake\bin\Release\Snake.exe.config
-D:\snake\Snake\bin\Release\Snake.exe
-D:\snake\Snake\bin\Release\Snake.pdb
-D:\snake\Snake\obj\Release\Snake.exe
-D:\snake\Snake\obj\Release\Snake.pdb
