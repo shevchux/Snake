@@ -10,12 +10,9 @@ namespace Snake
 {
     class Program
     {
-        static void Main()
+        private static void NewGame(List<MenuItem> list = null)
         {
-            Console.CursorVisible = false;
-
-            Config data = new Config();
-            Config.LoadModifiedData();    
+            Console.Clear();
 
             Score score = new Score();
             score.Show();
@@ -30,7 +27,7 @@ namespace Snake
             Food food = new Food();
             food.GenerateFood(snake);
             food.Draw();
-            
+
             while (true)
             {
                 if (snake.hannibal() || snake.bump(frame))
@@ -65,6 +62,26 @@ namespace Snake
                 }
                 Thread.Sleep(Config.REFRESH_SPEED);
             }
+        }
+        private static void Settings(List<MenuItem> list = null)
+        {
+            List<MenuItem> settingList = new List<MenuItem>();
+            settingList.Add(new MenuItem("Characters", MenuItemType.TITLE));
+            settingList.Add(new MenuItemChar("Snake", Config.SYMBOL_SNAKE, MenuItemChar.MenuItemCharField.SNAKE));
+            settingList.Add(new MenuItemChar("Food", Config.SYMBOL_FOOD, MenuItemChar.MenuItemCharField.FOOD));
+            settingList.Add(new MenuItemChar("Border", Config.SYMBOL_BORDER, MenuItemChar.MenuItemCharField.BORDER));
+            settingList.Add(new MenuItem("", MenuItemType.TITLE));
+            settingList.Add(new MenuItem("Field sizes", MenuItemType.TITLE));
+            settingList.Add(new MenuItemSize("Width", Config.WINDOW_WIDTH, MenuItemSize.MenuItemSizeField.WIDTH));
+            settingList.Add(new MenuItemSize("Height", Config.WINDOW_HEIGHT, MenuItemSize.MenuItemSizeField.HEIGHT));
+            settingList.Add(new MenuItem("", MenuItemType.TITLE));
+            settingList.Add(new MenuItem("Save changes", MenuItemType.BUTTON, new DelegateMenuItem(Config.SaveSettings)));
+            settingList.Add(new MenuItem("Cancel", MenuItemType.BUTTON, new DelegateMenuItem(Config.Cancel)));
+            Menu settings = new Menu("SETTINGS", settingList);
+            settings.Open();
+        }
+        private static void Exit(List<MenuItem> list = null)
+        {
             Environment.Exit(0);
         }
         private static void GameOver(int result)
@@ -114,15 +131,28 @@ namespace Snake
                 switch (key)
                 {
                     case ConsoleKey.Y:
-                        Console.Clear();
-                        Main();
+                        NewGame();
                         break;
                     case ConsoleKey.N:
-                        Console.Clear();
+                        Main();
                         flag = false;
                         break;
                 }
             }
+        }
+
+        public static void Main()
+        {
+            Console.CursorVisible = false;
+            Config data = new Config();
+
+            List<MenuItem> menuList = new List<MenuItem>();
+            menuList.Add(new MenuItem("New game", MenuItemType.BUTTON, new DelegateMenuItem(NewGame)));
+            menuList.Add(new MenuItem("Settings", MenuItemType.BUTTON, new DelegateMenuItem(Settings)));
+            menuList.Add(new MenuItem("", MenuItemType.TITLE));
+            menuList.Add(new MenuItem("Exit", MenuItemType.BUTTON, new DelegateMenuItem(Exit)));
+            Menu menu = new Menu("CONSOLE SNAKE", menuList);
+            menu.Open();
         }
     }
 }
