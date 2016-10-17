@@ -81,7 +81,7 @@ namespace Snake
             settingList.Add(FieldHeight);
             settingList.Add(new MenuItem(""));
             settingList.Add(new MenuItem("Snake speed"));
-            MenuItem SnakeSpeed = new MenuInputNum("Sec. per step", Config.REFRESH_SPEED, Config.REFRESH_SPEED_MIN, Config.REFRESH_SPEED_MAX, Config.REFRESH_SPEED_STEP);
+            MenuItem SnakeSpeed = new MenuInputNum("ms. per step", Config.REFRESH_SPEED, Config.REFRESH_SPEED_MIN, Config.REFRESH_SPEED_MAX, Config.REFRESH_SPEED_STEP);
             settingList.Add(SnakeSpeed);
             settingList.Add(new MenuItem(""));
             settingList.Add(new MenuItem(""));
@@ -94,8 +94,7 @@ namespace Snake
                 Config.REFRESH_SPEED = (SnakeSpeed as MenuInputNum).Value;
                 Config.LoadModifiedData();
                 Menu();
-            }));
-            settingList.Add(new MenuButton("Cancel", new DelegateMenuItem(Menu)));
+            }));            settingList.Add(new MenuButton("Cancel", new DelegateMenuItem(Menu)));
             Menu settings = new Menu("SETTINGS", settingList);
             settings.Show();
         }
