@@ -13,8 +13,8 @@ namespace Snake
         {
             do
             {
-                x = rand.Next(1, Config.WINDOW_WIDTH - 3);
-                y = rand.Next(2, Config.WINDOW_HEIGHT - 5);
+                x = rand.Next(1, Config.FIELD_WIDTH - 3);
+                y = rand.Next(2, Config.FIELD_HEIGHT - 5);
             }
             while (matchWithBody(snake));
             symbol = Config.SYMBOL_FOOD;

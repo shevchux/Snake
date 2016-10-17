@@ -38,14 +38,14 @@ namespace Snake
         public static void ShowPause()
         {
             string s = "PRESS ANY KEY TO CONTINUE";
-            Console.SetCursorPosition(2 * Config.WINDOW_WIDTH - s.Length - 1, 0);
+            Console.SetCursorPosition(2 * Config.FIELD_WIDTH - s.Length - 1, 0);
             Console.Write(s);
         }
 
         public static void HidePause()
         {
             string s = "                         ";
-            Console.SetCursorPosition(2 * Config.WINDOW_WIDTH - s.Length - 1, 0);
+            Console.SetCursorPosition(2 * Config.FIELD_WIDTH - s.Length - 1, 0);
             Console.Write(s);
         }
 

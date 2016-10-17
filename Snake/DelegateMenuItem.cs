@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace Snake
 {
-    delegate void DelegateMenuItem(List<MenuItem> list);
+    delegate void DelegateMenuItem();
 }

@@ -10,14 +10,14 @@ namespace Snake
 {
     class Program
     {
-        private static void NewGame(List<MenuItem> list = null)
+        private static void NewGame()
         {
             Console.Clear();
 
             Score score = new Score();
             score.Show();
 
-            Frame frame = new Frame(Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT);
+            Frame frame = new Frame(Config.FIELD_WIDTH, Config.FIELD_HEIGHT);
             frame.Draw();
 
             Point position = new Point(Config.SNAKE_START_POSITION_X, Config.SNAKE_START_POSITION_Y, Config.SYMBOL_SNAKE);
@@ -32,7 +32,7 @@ namespace Snake
             {
                 if (snake.hannibal() || snake.bump(frame))
                 {
-                    Console.SetCursorPosition(0, Config.WINDOW_HEIGHT - 1);
+                    Console.SetCursorPosition(0, Config.FIELD_HEIGHT - 1);
                     GameOver(score.result);
                     break;
                 }
@@ -63,35 +63,64 @@ namespace Snake
                 Thread.Sleep(Config.REFRESH_SPEED);
             }
         }
-        private static void Settings(List<MenuItem> list = null)
+        private static void Settings()
         {
             List<MenuItem> settingList = new List<MenuItem>();
-            settingList.Add(new MenuItem("Characters", MenuItemType.TITLE));
-            settingList.Add(new MenuItemChar("Snake", Config.SYMBOL_SNAKE, MenuItemChar.MenuItemCharField.SNAKE));
-            settingList.Add(new MenuItemChar("Food", Config.SYMBOL_FOOD, MenuItemChar.MenuItemCharField.FOOD));
-            settingList.Add(new MenuItemChar("Border", Config.SYMBOL_BORDER, MenuItemChar.MenuItemCharField.BORDER));
-            settingList.Add(new MenuItem("", MenuItemType.TITLE));
-            settingList.Add(new MenuItem("Field sizes", MenuItemType.TITLE));
-            settingList.Add(new MenuItemSize("Width", Config.WINDOW_WIDTH, MenuItemSize.MenuItemSizeField.WIDTH));
-            settingList.Add(new MenuItemSize("Height", Config.WINDOW_HEIGHT, MenuItemSize.MenuItemSizeField.HEIGHT));
-            settingList.Add(new MenuItem("", MenuItemType.TITLE));
-            settingList.Add(new MenuItem("Save changes", MenuItemType.BUTTON, new DelegateMenuItem(Config.SaveSettings)));
-            settingList.Add(new MenuItem("Cancel", MenuItemType.BUTTON, new DelegateMenuItem(Config.Cancel)));
+            settingList.Add(new MenuItem("Characters"));
+            MenuItem SnakeChar = new MenuInputChar("Snake", Config.SYMBOL_SNAKE);
+            MenuItem FoodChar = new MenuInputChar("Food", Config.SYMBOL_FOOD);
+            MenuItem BorderChar = new MenuInputChar("Border", Config.SYMBOL_BORDER);
+            settingList.Add(SnakeChar);
+            settingList.Add(FoodChar);
+            settingList.Add(BorderChar);
+            settingList.Add(new MenuItem(""));
+            settingList.Add(new MenuItem("Field sizes"));
+            MenuItem FieldWidth = new MenuInputNum("Width", Config.FIELD_WIDTH, Config.FIELD_WIDTH_MIN, Config.FIELD_WIDTH_MAX, 1);
+            MenuItem FieldHeight = new MenuInputNum("Height", Config.FIELD_HEIGHT, Config.FIELD_HEIGHT_MIN, Config.FIELD_HEIGHT_MAX, 1);
+            settingList.Add(FieldWidth);
+            settingList.Add(FieldHeight);
+            settingList.Add(new MenuItem(""));
+            settingList.Add(new MenuItem("Snake speed"));
+            MenuItem SnakeSpeed = new MenuInputNum("Sec. per step", Config.REFRESH_SPEED, Config.REFRESH_SPEED_MIN, Config.REFRESH_SPEED_MAX, Config.REFRESH_SPEED_STEP);
+            settingList.Add(SnakeSpeed);
+            settingList.Add(new MenuItem(""));
+            settingList.Add(new MenuItem(""));
+            settingList.Add(new MenuButton("Save changes", delegate {
+                Config.SYMBOL_SNAKE = (SnakeChar as MenuInputChar).Value;
+                Config.SYMBOL_FOOD = (FoodChar as MenuInputChar).Value;
+                Config.SYMBOL_BORDER = (BorderChar as MenuInputChar).Value;
+                Config.FIELD_HEIGHT = (FieldHeight as MenuInputNum).Value;
+                Config.FIELD_WIDTH = (FieldWidth as MenuInputNum).Value;
+                Config.REFRESH_SPEED = (SnakeSpeed as MenuInputNum).Value;
+                Config.LoadModifiedData();
+                Menu();
+            }));
+            settingList.Add(new MenuButton("Cancel", new DelegateMenuItem(Menu)));
             Menu settings = new Menu("SETTINGS", settingList);
-            settings.Open();
+            settings.Show();
         }
-        private static void Exit(List<MenuItem> list = null)
+        private static void Menu()
+        {
+            List<MenuItem> menuList = new List<MenuItem>();
+            menuList.Add(new MenuButton("New game", new DelegateMenuItem(NewGame)));
+            menuList.Add(new MenuButton("Settings", new DelegateMenuItem(Settings)));
+            menuList.Add(new MenuItem(""));
+            menuList.Add(new MenuButton("Exit", new DelegateMenuItem(Exit)));
+            Menu menu = new Menu("CONSOLE SNAKE", menuList);
+            menu.Show();
+        }
+        private static void Exit()
         {
             Environment.Exit(0);
         }
         private static void GameOver(int result)
         {
             string s = "";
-            for (int i = 0; i < 2 * Config.WINDOW_WIDTH - 1; i++)
+            for (int i = 0; i < Config.FIELD_WIDTH - 1; i++)
             {
-                s += Config.SYMBOL_BORDER;
+                s += Config.SYMBOL_BORDER + " ";
             }
-            for (int i = 1; i < Config.WINDOW_HEIGHT - 1; i++)
+            for (int i = 1; i < Config.FIELD_HEIGHT - 1; i++)
             {
                 Console.SetCursorPosition(0, i);
                 Console.Write(s);
@@ -116,17 +145,17 @@ namespace Snake
             }
             for (int i = 0; i < message.Count(); i++)
             {
-                Console.SetCursorPosition((2 * Config.WINDOW_WIDTH - message[i].Length) / 2, (Config.WINDOW_HEIGHT - message.Count()) / 2 + i);
+                Console.SetCursorPosition((2 * Config.FIELD_WIDTH - message[i].Length) / 2, (Config.FIELD_HEIGHT - message.Count()) / 2 + i);
                 Console.Write(message[i]);
             }
-            Console.SetCursorPosition((2 * Config.WINDOW_WIDTH - finalScore.Length) / 2, Config.WINDOW_HEIGHT / 2 - (Config.WINDOW_HEIGHT % 2 == 1 ? 0 : 1));
+            Console.SetCursorPosition((2 * Config.FIELD_WIDTH - finalScore.Length) / 2, Config.FIELD_HEIGHT / 2 - (Config.FIELD_HEIGHT % 2 == 1 ? 0 : 1));
             Console.Write(finalScore);
-            Console.SetCursorPosition(0, Config.WINDOW_HEIGHT - 1);
+            Console.SetCursorPosition(0, Config.FIELD_HEIGHT - 1);
             bool flag = true;
             while (flag)
             {
                 ConsoleKey key = Console.ReadKey().Key;
-                Console.SetCursorPosition(0, Config.WINDOW_HEIGHT - 1);
+                Console.SetCursorPosition(0, Config.FIELD_HEIGHT - 1);
                 Console.Write(" ");
                 switch (key)
                 {
@@ -143,16 +172,10 @@ namespace Snake
 
         public static void Main()
         {
+            Console.ForegroundColor = Config.COLOR_DEFAULT;
             Console.CursorVisible = false;
             Config data = new Config();
-
-            List<MenuItem> menuList = new List<MenuItem>();
-            menuList.Add(new MenuItem("New game", MenuItemType.BUTTON, new DelegateMenuItem(NewGame)));
-            menuList.Add(new MenuItem("Settings", MenuItemType.BUTTON, new DelegateMenuItem(Settings)));
-            menuList.Add(new MenuItem("", MenuItemType.TITLE));
-            menuList.Add(new MenuItem("Exit", MenuItemType.BUTTON, new DelegateMenuItem(Exit)));
-            Menu menu = new Menu("CONSOLE SNAKE", menuList);
-            menu.Open();
+            Menu();
         }
     }
 }

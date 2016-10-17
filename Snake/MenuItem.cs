@@ -8,20 +8,18 @@ namespace Snake
 {
     class MenuItem
     {
-        public string name { get; set; }
-        private DelegateMenuItem action;
-        public MenuItemType type { get; set; }
+        protected string name;
 
-        public MenuItem(string name = "Undefined", MenuItemType type = MenuItemType.BUTTON, DelegateMenuItem action = null)
+        public MenuItem(string name)
         {
             this.name = name;
-            this.type = type;
-            this.action = action;
         }
 
-        public void act(List<MenuItem> list = null)
+        public virtual void Show()
         {
-            action(list);
+            Console.ForegroundColor = Config.COLOR_FOOD;
+            Console.Write(name);
+            Console.ForegroundColor = Config.COLOR_DEFAULT;
         }
     }
 }
