@@ -1,9 +1,11 @@
 # Snake
 The **console game** in `C#`
+
 ## What's new?
 - *Menu* and *MenuItem* classes has been rewritten
 - Child classes such as *MenuInputChar*, *MenuInputNum* and *MenuButton*
 - A little bit of perfectionism in the code
+
 ## Project development
 - [ ] The best result table
 - [ ] The ability to remove results
